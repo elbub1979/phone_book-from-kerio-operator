@@ -3,9 +3,9 @@
 require 'dotenv'
 require 'sqlite3'
 
-Dotenv.load('/configs/.env')
+Dotenv.load('./configs/.env')
 
-require_relative 'libs/phones_collection'
+require_relative 'libs/contacts_collection'
 
 # yaml_keys = YamlDriver.read_yml
 # yaml_keys.size do |key, value|
@@ -13,11 +13,17 @@ require_relative 'libs/phones_collection'
 # end
 
 
-external_phones_collection = PhonesCollection.external
-external_phones_collection = PhonesCollection.internal
+external_phones_collection = ContactsCollection.external
+internal_phones_collection = ContactsCollection.internal
 
-# internal_phones_collection = PhonesCollection.internal(external_phones_collection.phones)
-# internal_phones_collection = PhonesCollection.new([Phone.new({person: 'Леушкин Илья Александрович', number: '111'} )])
+if external_phones_collection.equal?(internal_phones_collection)
+  puts 'equal'
+else
+  internal_phones_collection.repair(external_phones_collection)
+end
+
+# internal_phones_collection = ContactsCollection.internal(external_phones_collection.phones)
+# internal_phones_collection = ContactsCollection.new([Contact.new({person: 'Леушкин Илья Александрович', number: '111'} )])
 
 # unless external_phones_collection.equal?(internal_phones_collection)
 #   puts 'update phonebook'
