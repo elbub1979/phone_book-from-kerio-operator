@@ -17,17 +17,18 @@ class ContactsCollection
   class << self
     # метод класса для получения контактов через класс Operator и создания экземпляра класса
     def external
-      # получения контактов через класс Operator
+      # получение контактов через с севера ip телефонии
       collection = Operator.contacts_collection
       # парсинг ответа для получения списка контактов
       data = collection.instance_variable_get(:@resp).parsed_response['result']['sipExtensionList']
       # создание массива контактов
       contacts = data.each.with_object([]) do |element, accum|
-        next if permissible?(element)
+        next if inadmissible?(element) # следующий элемент, если текущий недопустим
 
-        phone_number = element['telNum'].to_i
-        person = element['FULL_NAME']
+        phone_number = element['telNum'].to_i # получаем номер телефона и присваиваем его соответствующей переменной
+        person = element['FULL_NAME'] # получаем имя сотрудника и присваиваем его соответствующей переменной
 
+        # получаем город и присваиваем его соответствующей переменной
         town = case phone_number
                when (100..699) then TOWNS_COLLECTION['msk']
                when (700..799) then TOWNS_COLLECTION['spb']
@@ -36,6 +37,7 @@ class ContactsCollection
                else 'undefined'
                end
 
+        # создаем экзеипляр класса Contact и добавляем его в массив
         accum << Contact.new(person: person, phone_number: phone_number, town: town)
       end
       # создание экземпляра класса PhoneCollection
@@ -43,24 +45,25 @@ class ContactsCollection
     end
 
     def internal
+      # получение контактов из локальной базы данных
       array = SqliteDriver.contacts_collection
-
+      # создание массива контактов
       contacts = array.each_with_object([]) do |contact, accum|
+        phone_number = contact[1]  # получаем номер телефона и присваиваем его соответствующей переменной
+        person = contact[2] # получаем имя сотрудника и присваиваем его соответствующей переменной
+        town = contact[3] # получаем город и присваиваем его соответствующей переменной
 
-        phone_number = contact[1]
-        person = contact[2]
-        town = contact[3]
-
+        # создаем экзеипляр класса Contact и добавляем его в массив
         accum << Contact.new(person: person, phone_number: phone_number, town: town)
       end
-
+      # создание экземпляра класса PhoneCollection
       new(contacts)
     end
 
     private
 
     # метод проверки допустимости контакта
-    def permissible?(element)
+    def inadmissible?(element)
       element['FULL_NAME'].empty? || prohibition?(element) || element['telNum'].to_i > 1000
     end
 
