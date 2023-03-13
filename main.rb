@@ -20,4 +20,6 @@ if external_phones_collection.equal?(internal_phones_collection)
   puts 'equal'
 else
   internal_phones_collection.repair(external_phones_collection)
+  XlsDriver.write_xsl(internal_phones_collection.phones)
+  puts 'repair'
 end

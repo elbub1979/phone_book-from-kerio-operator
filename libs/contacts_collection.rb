@@ -110,7 +110,7 @@ class ContactsCollection
   # строковое представление коллекии контактов
   def to_s
     <<~PHONECOLLECTION
-              #{
+      #{
         phones.group_by(&:town).map do |key, value|
           "#{key.to_s.capitalize}\n#{value.map(&:to_s).join("\n")}"
         end.join("\n")

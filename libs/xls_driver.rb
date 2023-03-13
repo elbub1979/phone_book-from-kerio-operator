@@ -6,61 +6,56 @@ require 'rubyXL/convenience_methods'
 # этот класс обеспечивает взаимодействие с xls документом
 class XlsDriver
   class << self
-    def read_xsl
-      # RubyXL::Workbook.new
-      workbook = RubyXL::Parser.parse('test.xlsx')
-      worksheet = workbook[0]
-      p worksheet.sheet_data[0]
-      # worksheet.insert_row(1)
-      # worksheet.add_cell(1, 0, 'Yakovlev Evgeniy Nikolaevich')
-      # worksheet.add_cell(1, 1, '102')
-      # worksheet.add_cell(0, 0, 'Имя')
-      # worksheet.add_cell(0, 1, 'Номер')
-      # workbook.write('test.xlsx')
-    end
-
     def write_xsl(collection)
-      # RubyXL::Workbook.new
+      # открываем телефонный справочник xlsx
       workbook = RubyXL::Parser.parse('test.xlsx')
       worksheet = workbook[0]
       worksheet.sheet_data[0]
-      worksheet.sheet_name = 'Phones'
-
+      # переименовываем вкладку
+      worksheet.sheet_name = 'Телефонный справочник'
+      # удаляем содержимое
       worksheet.delete_column(0)
       worksheet.delete_column(1)
 
-      worksheet.change_column_width(0, 41)
-      worksheet.change_column_width(1, 10)
+      # форматируем таблицу
+      # worksheet.change_column_bold(0, true) # Makes A1 bold
+      # worksheet.change_column_italics(0, true) # Makes first row italicized
+      # worksheet.change_column_font_name(0, 'Courier') # Makes first column have font Courier
 
-      # worksheet.sheet_data[0][0].change_font_bold(true) # Makes A1 bold
+      worksheet.change_column_width(0, 41) # изменяем ширину столбца А
+      worksheet.change_column_width(1, 25) # изменяем ширину столбца B
+      worksheet.change_column_horizontal_alignment(0, 'center') # выравнимаем по центру горизонтали содержимое столбца А
+      worksheet.change_column_horizontal_alignment(1, 'center') # выравнимаем центру горизонтали содержимое столбца B
+      worksheet.change_column_vertical_alignment(0, 'center') # выравнимаем по центру вертикали содержимое столбца А
+      worksheet.change_column_vertical_alignment(1, 'center') # выравнимаем центру вертикали содержимое столбца B
 
-      worksheet.merge_cells(0, 0, 0, 1)
-      worksheet.change_column_horizontal_alignment(0, 'center')
+      worksheet.add_cell(0, 0, 'Сотрудник')
+      worksheet.add_cell(0, 1, 'Номер телефона')
+      worksheet.change_row_height(0, 20)
+      worksheet.change_row_horizontal_alignment(0, 'center')
+      worksheet.change_row_vertical_alignment(0, 'center')
 
-      worksheet.add_cell(0, 0, 'Москва')
-
-      collection.with_index(1) do |phone, index|
-        worksheet.add_cell(index, 0, phone.person)
-        worksheet.add_cell(index, 1, phone.number)
+      row_to_merge = []
+      collection.group_by(&:town).flatten(2).each.with_index(1) do |element, index|
+        if element.is_a?(String)
+          worksheet.add_cell(index, 0, element)
+          row_to_merge << index
+          worksheet.change_row_height(index, 20)
+        else
+          worksheet.add_cell(index, 0, element.person)
+          worksheet.add_cell(index, 1, element.phone_number)
+          worksheet.change_row_height(index, 20)
+        end
       end
 
-      worksheet.change_column_bold(0, true) # Makes A1 bold
-      worksheet.change_column_italics(0, true) # Makes first row italicized
-      worksheet.change_column_font_name(0, 'Courier') # Makes first column have font Courier
+      row_to_merge.each do |element|
+        worksheet.merge_cells(element, 0, element, 1)
+        worksheet.sheet_data[element][0].change_font_bold(true)
+        worksheet.change_row_horizontal_alignment(element, 'center')
+        worksheet.change_row_vertical_alignment(element, 'center')
+      end
 
-      # worksheet.insert_row(1)
-      # worksheet.add_cell(1, 0, 'Yakovlev Evgeniy Nikolaevich')
-      # worksheet.add_cell(1, 1, '102')
-      # worksheet.add_cell(0, 0, 'Имя')
-      # worksheet.add_cell(0, 1, 'Номер')
       workbook.write('test.xlsx')
-
-      workbook = RubyXL::Workbook.new
-      worksheet = workbook[0]
-      worksheet.sheet_name = 'Phones'
-
-      worksheet.merge_cells(0, 0, 1, 1)
-      workbook.write('test2.xlsx')
     end
   end
 end
