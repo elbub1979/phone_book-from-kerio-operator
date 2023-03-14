@@ -49,7 +49,7 @@ class ContactsCollection
       array = SqliteDriver.contacts_collection
       # создание массива контактов
       contacts = array.each_with_object([]) do |contact, accum|
-        phone_number = contact[1]  # получаем номер телефона и присваиваем его соответствующей переменной
+        phone_number = contact[1] # получаем номер телефона и присваиваем его соответствующей переменной
         person = contact[2] # получаем имя сотрудника и присваиваем его соответствующей переменной
         town = contact[3] # получаем город и присваиваем его соответствующей переменной
 
@@ -80,13 +80,10 @@ class ContactsCollection
   # метод для сравнения коллекций контактов, полученных с сервера ip телефонии и сохранных ранее
   def equal?(other)
     phones.size == other.phones.size &&
-      phones.any? do |phone|
-        other.phones.each do |other_phone|
-          if phone.person == other_phone.person && phone.phone_number == other_phone.phone_number
-            break true
-          end
-        end
-        false
+      phones.all? do |phone|
+        other.phones.select do |other_phone|
+          phone.person == other_phone.person && phone.phone_number == other_phone.phone_number
+        end.any?
       end
   end
 
@@ -110,7 +107,7 @@ class ContactsCollection
   # строковое представление коллекии контактов
   def to_s
     <<~PHONECOLLECTION
-      #{
+            #{
         phones.group_by(&:town).map do |key, value|
           "#{key.to_s.capitalize}\n#{value.map(&:to_s).join("\n")}"
         end.join("\n")
