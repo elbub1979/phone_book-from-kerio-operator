@@ -2,24 +2,42 @@
 
 require 'dotenv'
 require 'sqlite3'
+require 'logger'
 
 Dotenv.load('./configs/.env')
 
 require_relative 'libs/contacts_collection'
 
-# yaml_keys = YamlDriver.read_yml
-# yaml_keys.size do |key, value|
-#   eval("ENV['#{key}] = #{value}")
-# end
+logger = Logger.new('main.log')
+logger.level = Logger::INFO
+logger.datetime_format = '%d/%m/%y %H:%M:%S'
 
+# logging
+# logger.debug('debug log message')
+# logger.fatal('fatal log message')
+# logger.unknown('unknown log message')
 
-external_phones_collection = ContactsCollection.external
-internal_phones_collection = ContactsCollection.internal
+begin
+  external_phones_collection = ContactsCollection.external
+rescue StandardError
+  logger.error('main#external_phones_collection: error')
+ensure
+  logger.info('main#external_phones_collection: success')
+end
+
+begin
+  internal_phones_collection = ContactsCollection.internal
+rescue StandardError
+  logger.error('main#internal_phones_collection: error')
+ensure
+  logger.info('main#inernal_phones_collection: success')
+end
 
 if external_phones_collection.equal?(internal_phones_collection)
-  puts 'equal'
+  logger.info('comparison of collections was successful')
 else
   internal_phones_collection.repair(external_phones_collection)
+  internal_phones_collection.remove_unnecessary(external_phones_collection)
   XlsDriver.write_xsl(internal_phones_collection.phones)
-  puts 'repair'
+  logger.warn('comparison of collections was unsuccessful: fixed')
 end

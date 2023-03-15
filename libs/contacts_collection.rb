@@ -5,9 +5,14 @@ require_relative 'operator'
 require_relative 'xls_driver'
 require_relative 'sqlite_driver'
 require 'psych'
+require 'logger'
 
 # этот класс обеспечивает работу с колекцией контактов
 class ContactsCollection
+  @logger = Logger.new('main.log')
+  @logger.level = Logger::INFO
+  @logger.datetime_format = '%d/%m/%y %H:%M:%S'
+
   # константа для хранения контактов, запрещенных для отображения во внешнем справочнике телефонов
   PROHIBITION_COLLECTION = Psych.load_file('./configs/config.yml')['prohibited_collection'].freeze
   TOWNS_COLLECTION = Psych.load_file('./configs/config.yml')['towns_collection'].freeze
@@ -30,10 +35,11 @@ class ContactsCollection
 
         # получаем город и присваиваем его соответствующей переменной
         town = case phone_number
-               when (100..699) then TOWNS_COLLECTION['msk']
-               when (700..799) then TOWNS_COLLECTION['spb']
-               when (800..899) then TOWNS_COLLECTION['srt']
-               when (900..999) then TOWNS_COLLECTION['rnd']
+               when (100..599) then TOWNS_COLLECTION['msk']
+               when (600..699) then TOWNS_COLLECTION['spb']
+               when (700..799) then TOWNS_COLLECTION['srt']
+               when (950..959) then TOWNS_COLLECTION['ngnsk']
+               when (960..969) then TOWNS_COLLECTION['bvzm']
                else 'undefined'
                end
 
@@ -85,6 +91,10 @@ class ContactsCollection
           phone.person == other_phone.person && phone.phone_number == other_phone.phone_number
         end.any?
       end
+  rescue StandardError
+    @logger.error('ContactCollection#equal?')
+  ensure
+    # @logger.info('ContactCollection#equal?')
   end
 
   def repair(other)
@@ -95,19 +105,23 @@ class ContactsCollection
 
       if contact.nil?
         SqliteDriver.create(external_contact)
-        next
-      end
-
-      if contact.not_equal?(external_contact)
+      else
         SqliteDriver.update(external_contact)
       end
+    end
+  end
+
+  def remove_unnecessary(other)
+    phones.each do |internal_contact|
+      contact = other.phones.find { |external_contact| external_contact.phone_number == internal_contact.phone_number }
+      SqliteDriver.destroy(internal_contact) if contact.nil?
     end
   end
 
   # строковое представление коллекии контактов
   def to_s
     <<~PHONECOLLECTION
-            #{
+                      #{
         phones.group_by(&:town).map do |key, value|
           "#{key.to_s.capitalize}\n#{value.map(&:to_s).join("\n")}"
         end.join("\n")

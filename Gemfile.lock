@@ -13,6 +13,7 @@ GEM
       httmultiparty (~> 0.3.16)
       httparty (~> 0.14.0)
       json_pure (~> 2.6.3)
+    logger (1.4.3)
     mimemagic (0.4.3)
       nokogiri (~> 1)
       rake
@@ -37,6 +38,7 @@ PLATFORMS
 DEPENDENCIES
   dotenv
   kerio-api
+  logger
   psych
   rubyXL
   sqlite3

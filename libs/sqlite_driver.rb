@@ -34,5 +34,12 @@ class SqliteDriver
       db.execute 'UPDATE contacts SET person=?, town=? WHERE phone_number=?',
                  %W[#{contact.person} #{contact.town} #{contact.phone_number}]
     end
+
+    def destroy(contact)
+      db = SQLite3::Database.new 'test.db'
+
+      db.execute 'DELETE FROM contacts WHERE phone_number=?',
+                 contact.phone_number
+    end
   end
 end

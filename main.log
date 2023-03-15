@@ -1,0 +1,70 @@
+# Logfile created on 2023-03-15 21:51:50 +0300 by logger.rb/v1.4.3
+I, [15/03/23 21:51:52#853254]  INFO -- : main#external_phones_collection: success
+I, [15/03/23 21:51:52#853254]  INFO -- : main#inernal_phones_collection: success
+I, [15/03/23 21:52:18#854347]  INFO -- : main#external_phones_collection: success
+I, [15/03/23 21:52:18#854347]  INFO -- : main#inernal_phones_collection: success
+I, [15/03/23 21:53:06#855864]  INFO -- : main#external_phones_collection: success
+I, [15/03/23 21:53:06#855864]  INFO -- : main#inernal_phones_collection: success
+I, [15/03/23 21:55:40#856580]  INFO -- : main#external_phones_collection: success
+I, [15/03/23 21:55:40#856580]  INFO -- : main#inernal_phones_collection: success
+W, [15/03/23 21:55:40#856580]  WARN -- : comparison of collections was unsuccessful: fixed
+I, [15/03/23 21:57:04#857258]  INFO -- : main#external_phones_collection: success
+I, [15/03/23 21:57:04#857258]  INFO -- : main#inernal_phones_collection: success
+W, [15/03/23 21:57:04#857258]  WARN -- : comparison of collections was unsuccessful: fixed
+I, [15/03/23 21:57:32#857927]  INFO -- : main#external_phones_collection: success
+I, [15/03/23 21:57:32#857927]  INFO -- : main#inernal_phones_collection: success
+I, [15/03/23 21:59:18#858821]  INFO -- : main#external_phones_collection: success
+I, [15/03/23 21:59:18#858821]  INFO -- : main#inernal_phones_collection: success
+I, [15/03/23 22:07:12#862874]  INFO -- : main#external_phones_collection: success
+I, [15/03/23 22:07:12#862874]  INFO -- : main#inernal_phones_collection: success
+W, [15/03/23 22:07:12#862874]  WARN -- : comparison of collections was unsuccessful: fixed
+I, [15/03/23 22:07:28#863310]  INFO -- : main#external_phones_collection: success
+I, [15/03/23 22:07:28#863310]  INFO -- : main#inernal_phones_collection: success
+W, [15/03/23 22:07:29#863310]  WARN -- : comparison of collections was unsuccessful: fixed
+I, [15/03/23 22:07:51#863543]  INFO -- : main#external_phones_collection: success
+I, [15/03/23 22:07:51#863543]  INFO -- : main#inernal_phones_collection: success
+W, [15/03/23 22:07:51#863543]  WARN -- : comparison of collections was unsuccessful: fixed
+I, [15/03/23 22:08:20#863767]  INFO -- : main#external_phones_collection: success
+I, [15/03/23 22:08:20#863767]  INFO -- : main#inernal_phones_collection: success
+I, [15/03/23 22:09:44#864473]  INFO -- : main#external_phones_collection: success
+I, [15/03/23 22:09:44#864473]  INFO -- : main#inernal_phones_collection: success
+W, [15/03/23 22:09:44#864473]  WARN -- : comparison of collections was unsuccessful: fixed
+I, [15/03/23 22:15:19#868494]  INFO -- : main#external_phones_collection: success
+I, [15/03/23 22:15:19#868494]  INFO -- : main#inernal_phones_collection: success
+W, [15/03/23 22:15:19#868494]  WARN -- : comparison of collections was unsuccessful: fixed
+I, [15/03/23 22:16:12#869151]  INFO -- : main#external_phones_collection: success
+I, [15/03/23 22:16:12#869151]  INFO -- : main#inernal_phones_collection: success
+W, [15/03/23 22:16:12#869151]  WARN -- : comparison of collections was unsuccessful: fixed
+I, [15/03/23 22:18:42#870332]  INFO -- : main#external_phones_collection: success
+I, [15/03/23 22:18:42#870332]  INFO -- : main#inernal_phones_collection: success
+W, [15/03/23 22:18:42#870332]  WARN -- : comparison of collections was unsuccessful: fixed
+I, [15/03/23 22:18:50#870772]  INFO -- : main#external_phones_collection: success
+I, [15/03/23 22:18:50#870772]  INFO -- : main#inernal_phones_collection: success
+W, [15/03/23 22:18:50#870772]  WARN -- : comparison of collections was unsuccessful: fixed
+I, [15/03/23 22:19:00#870992]  INFO -- : main#external_phones_collection: success
+I, [15/03/23 22:19:00#870992]  INFO -- : main#inernal_phones_collection: success
+W, [15/03/23 22:19:00#870992]  WARN -- : comparison of collections was unsuccessful: fixed
+I, [15/03/23 22:19:53#871647]  INFO -- : main#external_phones_collection: success
+I, [15/03/23 22:19:53#871647]  INFO -- : main#inernal_phones_collection: success
+I, [15/03/23 22:25:29#872488]  INFO -- : main#external_phones_collection: success
+I, [15/03/23 22:25:29#872488]  INFO -- : main#inernal_phones_collection: success
+I, [15/03/23 22:30:06#873892]  INFO -- : main#external_phones_collection: success
+I, [15/03/23 22:30:06#873892]  INFO -- : main#inernal_phones_collection: success
+W, [15/03/23 22:30:06#873892]  WARN -- : comparison of collections was unsuccessful: fixed
+I, [15/03/23 22:30:20#874337]  INFO -- : main#external_phones_collection: success
+I, [15/03/23 22:30:20#874337]  INFO -- : main#inernal_phones_collection: success
+W, [15/03/23 22:30:20#874337]  WARN -- : comparison of collections was unsuccessful: fixed
+I, [15/03/23 22:31:48#875018]  INFO -- : main#external_phones_collection: success
+I, [15/03/23 22:31:48#875018]  INFO -- : main#inernal_phones_collection: success
+I, [15/03/23 22:32:37#875698]  INFO -- : main#external_phones_collection: success
+I, [15/03/23 22:32:37#875698]  INFO -- : main#inernal_phones_collection: success
+W, [15/03/23 22:32:38#875698]  WARN -- : comparison of collections was unsuccessful: fixed
+I, [15/03/23 22:33:13#876165]  INFO -- : main#external_phones_collection: success
+I, [15/03/23 22:33:13#876165]  INFO -- : main#inernal_phones_collection: success
+I, [15/03/23 22:33:13#876165]  INFO -- : comparison of collections was successful
+I, [15/03/23 23:31:05#896564]  INFO -- : main#external_phones_collection: success
+I, [15/03/23 23:31:05#896564]  INFO -- : main#inernal_phones_collection: success
+W, [15/03/23 23:33:22#896564]  WARN -- : comparison of collections was unsuccessful: fixed
+I, [15/03/23 23:33:48#897712]  INFO -- : main#external_phones_collection: success
+I, [15/03/23 23:33:48#897712]  INFO -- : main#inernal_phones_collection: success
+I, [15/03/23 23:33:48#897712]  INFO -- : comparison of collections was successful

@@ -8,11 +8,7 @@ class Contact
   end
 
   def equal?(other)
-    phone_number == other.phone_number && person == other.person
-  end
-
-  def not_equal?(other)
-    phone_number == other.phone_number && person != other.person
+    phone_number == other.phone_number && person == other.person && town == other.town
   end
 
   def to_s
