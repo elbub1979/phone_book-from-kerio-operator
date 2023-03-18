@@ -38,6 +38,6 @@ if external_phones_collection.equal?(internal_phones_collection)
 else
   internal_phones_collection.repair(external_phones_collection)
   internal_phones_collection.remove_unnecessary(external_phones_collection)
-  XlsDriver.write_xsl(internal_phones_collection.phones)
+
   logger.warn('comparison of collections was unsuccessful: fixed')
 end

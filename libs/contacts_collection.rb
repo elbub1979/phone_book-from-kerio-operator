@@ -109,6 +109,7 @@ class ContactsCollection
         SqliteDriver.update(external_contact)
       end
     end
+    XlsDriver.write_xsl(other.phones)
   end
 
   def remove_unnecessary(other)
