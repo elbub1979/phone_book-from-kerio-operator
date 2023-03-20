@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
+require 'psych'
+require 'logger'
 require_relative 'contact'
 require_relative 'operator'
 require_relative 'xls_driver'
 require_relative 'sqlite_driver'
-require 'psych'
-require 'logger'
+require_relative 'xml_driver'
 
 # этот класс обеспечивает работу с колекцией контактов
 class ContactsCollection
@@ -16,6 +17,8 @@ class ContactsCollection
   # константа для хранения контактов, запрещенных для отображения во внешнем справочнике телефонов
   PROHIBITION_COLLECTION = Psych.load_file('./configs/config.yml')['prohibited_collection'].freeze
   TOWNS_COLLECTION = Psych.load_file('./configs/config.yml')['towns_collection'].freeze
+  XLS_PATH = Psych.load_file('./configs/config.yml')['xls_path'].freeze
+  XML_PATH = Psych.load_file('./configs/config.yml')['xml_path'].freeze
 
   attr_accessor :phones
 
@@ -91,10 +94,7 @@ class ContactsCollection
           phone.person == other_phone.person && phone.phone_number == other_phone.phone_number
         end.any?
       end
-  rescue StandardError
-    @logger.error('ContactCollection#equal?')
-  ensure
-    # @logger.info('ContactCollection#equal?')
+    false
   end
 
   def repair(other)
@@ -109,7 +109,8 @@ class ContactsCollection
         SqliteDriver.update(external_contact)
       end
     end
-    XlsDriver.write_xsl(other.phones)
+    XlsDriver.write_xsl(other.phones, XLS_PATH)
+    XmlDriver.write_xml(other.phones, XML_PATH)
   end
 
   def remove_unnecessary(other)

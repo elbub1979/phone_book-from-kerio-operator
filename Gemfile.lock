@@ -25,6 +25,7 @@ GEM
       stringio
     racc (1.6.2)
     rake (13.0.6)
+    rexml (3.2.5)
     rubyXL (3.4.25)
       nokogiri (>= 1.10.8)
       rubyzip (>= 1.3.0)
@@ -40,6 +41,7 @@ DEPENDENCIES
   kerio-api
   logger
   psych
+  rexml
   rubyXL
   sqlite3
 

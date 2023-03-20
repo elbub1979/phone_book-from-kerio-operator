@@ -6,9 +6,9 @@ require 'rubyXL/convenience_methods'
 # этот класс обеспечивает взаимодействие с xls документом
 class XlsDriver
   class << self
-    def write_xsl(collection)
+    def write_xsl(collection, path)
       # открываем телефонный справочник xlsx
-      workbook = RubyXL::Parser.parse('test.xlsx')
+      workbook = RubyXL::Parser.parse("#{path}test.xlsx")
       worksheet = workbook[0]
       worksheet.sheet_data[0]
       # переименовываем вкладку

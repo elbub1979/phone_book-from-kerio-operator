@@ -2,4 +2,5 @@ configs/
 *.db
 *.xlsx
 operator_last.rb
-*.log
+main.log
+*.xml
