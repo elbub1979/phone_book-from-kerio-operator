@@ -36,6 +36,8 @@ ensure
   logger.info('main#inernal_phones_collection: success')
 end
 
+exit if external_phones_collection.nil? || internal_phones_collection.nil?
+
 if external_phones_collection.equal?(internal_phones_collection)
   logger.info('comparison of collections was successful')
 else
