@@ -16,8 +16,11 @@ class ContactsCollection
 
   # константа для хранения контактов, запрещенных для отображения во внешнем справочнике телефонов
   PROHIBITION_COLLECTION = Psych.load_file('./configs/config.yml')['prohibited_collection'].freeze
+  # константа для хранения городов, необходима для групировки контактов
   TOWNS_COLLECTION = Psych.load_file('./configs/config.yml')['towns_collection'].freeze
+  # константа для хранения пути xls файла с контактами
   XLS_PATH = Psych.load_file('./configs/config.yml')['xls_path'].freeze
+  # константа для хранения пути xml файла с контактами
   XML_PATH = Psych.load_file('./configs/config.yml')['xml_path'].freeze
 
   attr_accessor :phones
@@ -86,15 +89,20 @@ class ContactsCollection
     @phones = phones
   end
 
-  # метод для сравнения коллекций контактов, полученных с сервера ip телефонии и сохранных ранее
+  # метод для проверки идентичности коллекций контактов, полученных с сервера ip телефонии и сохранных ранее
   def equal?(other)
-    phones.size == other.phones.size &&
-      phones.all? do |phone|
-        other.phones.select do |other_phone|
-          phone.person == other_phone.person && phone.phone_number == other_phone.phone_number
-        end.any?
+    # сравнение размера коллекий контактов
+    size_collections = phones.size == other.phones.size
+
+    # проверка каждого элемента внешней коллекции контактов на наличие идентичного элемента коллекции внутренней
+    # коллекции контактов
+    equal_collections = phones.all? do |external_contact|
+      other.phones.any? do |internal_contact|
+        external_contact.person == internal_contact.person && external_contact.phone_number == internal_contact.phone_number
       end
-    false
+    end
+
+    size_collections && equal_collections ? true : false
   end
 
   def repair(other)
@@ -123,7 +131,7 @@ class ContactsCollection
   # строковое представление коллекии контактов
   def to_s
     <<~PHONECOLLECTION
-                      #{
+                            #{
         phones.group_by(&:town).map do |key, value|
           "#{key.to_s.capitalize}\n#{value.map(&:to_s).join("\n")}"
         end.join("\n")

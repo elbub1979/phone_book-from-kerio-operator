@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    bindata (2.4.15)
     dotenv (2.8.1)
     httmultiparty (0.3.16)
       httparty (>= 0.7.3)
@@ -8,30 +9,40 @@ GEM
       multipart-post
     httparty (0.14.0)
       multi_xml (>= 0.5.2)
-    json_pure (2.6.3)
+    json_pure (2.0.4)
     kerio-api (1.0.0)
       httmultiparty (~> 0.3.16)
       httparty (~> 0.14.0)
-      json_pure (~> 2.6.3)
+      json_pure (~> 2.0.2)
     logger (1.4.3)
     mimemagic (0.4.3)
       nokogiri (~> 1)
       rake
     multi_xml (0.6.0)
-    multipart-post (2.3.0)
-    nokogiri (1.14.2-x86_64-linux)
+    multipart-post (2.4.0)
+    nokogiri (1.15.6-x86_64-linux)
       racc (~> 1.4)
+    openssl-ccm (1.2.3)
+    openssl-cmac (2.0.2)
     psych (5.1.0)
       stringio
-    racc (1.6.2)
-    rake (13.0.6)
+    racc (1.7.3)
+    rake (13.2.1)
     rexml (3.2.5)
     rubyXL (3.4.25)
       nokogiri (>= 1.10.8)
       rubyzip (>= 1.3.0)
+    ruby_smb (3.2.5)
+      bindata
+      openssl-ccm
+      openssl-cmac
+      rubyntlm
+      windows_error (>= 0.1.4)
+    rubyntlm (0.6.3)
     rubyzip (2.3.2)
     sqlite3 (1.6.1-x86_64-linux)
     stringio (3.0.5)
+    windows_error (0.1.5)
 
 PLATFORMS
   x86_64-linux
@@ -43,7 +54,8 @@ DEPENDENCIES
   psych
   rexml
   rubyXL
+  ruby_smb
   sqlite3
 
 BUNDLED WITH
-   2.4.7
+   2.4.1
