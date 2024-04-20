@@ -1,6 +1,7 @@
-configs/
+configs/*
 *.db
 *.xlsx
 operator_last.rb
 main.log
 *.xml
+.gitignore
