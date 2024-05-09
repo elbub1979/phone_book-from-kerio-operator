@@ -20,8 +20,16 @@ class ContactsCollection
   TOWNS_COLLECTION = Psych.load_file('./configs/config.yml')['towns_collection'].freeze
   # константа для хранения пути xls файла с контактами
   XLS_PATH = Psych.load_file('./configs/config.yml')['xls_path'].freeze
+
+  XLS_MOUNT = Psych.load_file('./configs/config.yml')['xls_mount'].freeze
   # константа для хранения пути xml файла с контактами
   XML_PATH = Psych.load_file('./configs/config.yml')['xml_path'].freeze
+
+  XML_MOUNT = Psych.load_file('./configs/config.yml')['xml_mount'].freeze
+
+  PHONEBOOK_XLS = Psych.load_file('./configs/config.yml')['phonebook_xls'].freeze
+
+  PHONEBOOK_XML = Psych.load_file('./configs/config.yml')['phonebook_xml'].freeze
 
   attr_accessor :phones
 
@@ -117,8 +125,9 @@ class ContactsCollection
         SqliteDriver.update(external_contact)
       end
     end
-    XlsDriver.write_xsl(other.phones, XLS_PATH)
-    XmlDriver.write_xml(other.phones, XML_PATH)
+    XlsDriver.write_xsl(other.phones, XLS_MOUNT, PHONEBOOK_XLS)
+
+    XmlDriver.write_xml(other.phones, XML_MOUNT, PHONEBOOK_XML)
   end
 
   def remove_unnecessary(other)
@@ -131,7 +140,7 @@ class ContactsCollection
   # строковое представление коллекии контактов
   def to_s
     <<~PHONECOLLECTION
-                            #{
+                              #{
         phones.group_by(&:town).map do |key, value|
           "#{key.to_s.capitalize}\n#{value.map(&:to_s).join("\n")}"
         end.join("\n")

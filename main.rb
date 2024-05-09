@@ -7,13 +7,10 @@ require 'logger'
 Dotenv.load('./configs/.env')
 
 require_relative 'libs/contacts_collection'
-require_relative 'libs/smb_driver'
 
 logger = Logger.new('main.log')
 logger.level = Logger::INFO
 logger.datetime_format = '%d/%m/%y %H:%M:%S'
-
-# SmbDriver.read_smb
 
 # logging
 # logger.debug('debug log message')

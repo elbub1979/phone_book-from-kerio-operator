@@ -5,8 +5,8 @@ require 'rexml'
 # этот класс обеспечивает взаимодействие с xls документом
 class XmlDriver
   class << self
-    def write_xml(contacts_collection, path)
-      file = File.new("#{path}phonebook.xml", 'r:UTF-8')
+    def write_xml(contacts_collection, path, file_name)
+      file = File.open("#{path}#{file_name}", 'a+:UTF-8')
 
       begin
         doc = REXML::Document.new(file)
@@ -32,7 +32,7 @@ class XmlDriver
                          }
       end
 
-      file = File.new("#{path}phonebook.xml", 'w:UTF-8')
+      file = File.new("#{path}#{file_name}", 'w:UTF-8')
       doc.write(file, 2)
       file.close
 

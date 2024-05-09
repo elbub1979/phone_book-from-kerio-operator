@@ -6,9 +6,9 @@ require 'rubyXL/convenience_methods'
 # этот класс обеспечивает взаимодействие с xls документом
 class XlsDriver
   class << self
-    def write_xsl(collection, path)
+    def write_xsl(collection, path, file_name)
       # открываем телефонный справочник xlsx
-      workbook = RubyXL::Parser.parse("#{path}test.xlsx")
+      workbook = RubyXL::Parser.parse("#{path}#{file_name}")
       worksheet = workbook[0]
       worksheet.sheet_data[0]
       # переименовываем вкладку
@@ -55,7 +55,7 @@ class XlsDriver
         worksheet.change_row_vertical_alignment(element, 'center')
       end
 
-      workbook.write('test.xlsx')
+      workbook.write("#{path}#{file_name}")
     end
   end
 end
