@@ -31,6 +31,8 @@ class ContactsCollection
 
   PHONEBOOK_XML = Psych.load_file('./configs/config.yml')['phonebook_xml'].freeze
 
+  PHONES_RANGE = Psych.load_file('./configs/config.yml')['phones_range'].freeze
+
   attr_accessor :phones
 
   class << self
@@ -49,11 +51,11 @@ class ContactsCollection
 
         # получаем город и присваиваем его соответствующей переменной
         town = case phone_number
-               when (100..599) then TOWNS_COLLECTION['msk']
-               when (600..699) then TOWNS_COLLECTION['spb']
-               when (700..799) then TOWNS_COLLECTION['srt']
-               when (950..959) then TOWNS_COLLECTION['ngnsk']
-               when (960..969) then TOWNS_COLLECTION['bvzm']
+               when eval(PHONES_RANGE['msk']) then TOWNS_COLLECTION['msk']
+               when eval(PHONES_RANGE['spb']) then TOWNS_COLLECTION['spb']
+               when eval(PHONES_RANGE['srt']) then TOWNS_COLLECTION['srt']
+               when eval(PHONES_RANGE['ngnsk']) then TOWNS_COLLECTION['ngnsk']
+               when eval(PHONES_RANGE['bvzm']) then TOWNS_COLLECTION['bvzm']
                else 'undefined'
                end
 
