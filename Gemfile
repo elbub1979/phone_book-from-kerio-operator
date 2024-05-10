@@ -12,4 +12,5 @@ gem 'rexml'
 gem 'ruby_smb'
 gem 'rubyXL'
 gem 'sqlite3'
+gem 'whenever', require: false
 

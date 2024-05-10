@@ -2,6 +2,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     bindata (2.4.15)
+    chronic (0.10.2)
     dotenv (2.8.1)
     httmultiparty (0.3.16)
       httparty (>= 0.7.3)
@@ -42,6 +43,8 @@ GEM
     rubyzip (2.3.2)
     sqlite3 (1.6.1-x86_64-linux)
     stringio (3.0.5)
+    whenever (1.0.0)
+      chronic (>= 0.6.3)
     windows_error (0.1.5)
 
 PLATFORMS
@@ -56,6 +59,7 @@ DEPENDENCIES
   rubyXL
   ruby_smb
   sqlite3
+  whenever
 
 BUNDLED WITH
    2.4.1
